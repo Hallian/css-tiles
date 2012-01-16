@@ -1,0 +1,3 @@
+[submodule "lib/css3-sass"]
+	path = lib/css3-sass
+	url = git@github.com:Hallian/css3-sass
