@@ -56,18 +56,6 @@
 		</script>
 
  		<script type="text/javascript">
- 			(function($)
- 			{
- 				$.fn.grid = function (data)
- 				{
- 					// TODO:_Fix css inject bug on big.
- 					data.forEach($.proxy(function (item, i) 
- 					{
- 						$(this).append(item);
- 					}, this));
- 				}
- 			})(jQuery);
-
  			var templates = {
  				tile : _.template($("#tile-template").html())
  				, header : _.template($("#tile-header-template").html())
@@ -83,7 +71,7 @@
 			 						});
 	 			}
 	 			
- 				$(".container-1").grid([
+ 				tiles = [
  					content({
  						image : "sam2.jpg"
  						, topic : "Duis aute irure dolor enim"
@@ -114,9 +102,13 @@
  						}
  						, big : false
  					})
- 				]);
+ 				];
+
+ 				tiles.forEach(function (tile, i) 
+				{
+					$(".container-1").append(tile);
+				});
  			});
- 			
  		</script>
 	</head>
 	<body>
