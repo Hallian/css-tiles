@@ -1,0 +1,127 @@
+<DOCTYPE html>
+<html>
+	<head>
+		<title>tile test</title>
+		<link rel="stylesheet" type="text/css" href="http://bublaa.local/css/tile.css" />
+ 		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+ 		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.2.2/underscore-min.js"></script>
+
+ 		<script type="text/template" id="tile-header-template">
+			<img src="<%- image %>" alt="" />
+			<h1><%- topic %></h1>
+		</script>
+
+ 		<script type="text/template" id="tile-body-template">
+			<h1><%- topic %></h1>
+			<%= details %>
+			<a href="<%- link.url %>" class="button"><%- link.label %></a>
+		</script>
+
+ 		<script type="text/template" id="tile-template">
+			<div class="tile <%- typeof big != 'undefined' ? (big ? 'big-tile' : '') : '' %>">
+				<header class="tile-header tile-header-style">
+					<%= typeof headerTemplate !== 'undefined' ? headerTemplate : '' %>
+				</header>
+
+				<div class="tile-body tile-body-style">
+					<%= typeof bodyTemplate !== 'undefined' ? bodyTemplate : '' %>
+				</div>
+			</div>
+		</script>
+
+		<script type="text/template" id="body-content">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ 			</p>
+ 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+ 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+ 			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+ 			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+ 			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+ 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ 			</p>
+		</script>
+
+		<script type="text/template" id="body-content-short">
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua.
+ 			</p>
+ 			<p>Excepteur sint occaecat cupidatat non
+ 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ 			</p>
+		</script>
+
+ 		<script type="text/javascript">
+ 			(function($)
+ 			{
+ 				$.fn.grid = function (data)
+ 				{
+ 					// TODO:_Fix css inject bug on big.
+ 					data.forEach($.proxy(function (item, i) 
+ 					{
+ 						$(this).append(item);
+ 					}, this));
+ 				}
+ 			})(jQuery);
+
+ 			var templates = {
+ 				tile : _.template($("#tile-template").html())
+ 				, header : _.template($("#tile-header-template").html())
+ 				, body : _.template($("#tile-body-template").html())
+ 			};
+
+ 			$(function () {
+	 			var content = function (data)
+	 			{
+	 				return templates.tile({ big : data.big
+	 								, headerTemplate : templates.header(data)
+		 							, bodyTemplate : templates.body(data)
+			 						});
+	 			}
+	 			
+ 				$(".container-1").grid([
+ 					content({
+ 						image : "sam2.jpg"
+ 						, topic : "Duis aute irure dolor enim"
+ 						, details : $("#body-content").html()
+ 						, link : {
+ 							label : "check it out!"
+ 							, url : "http://bublaa.com"
+ 						}
+ 						, big : true
+ 					})
+ 					, content({
+ 						image : "sam3.jpg"
+ 						, topic : "Excepteur occaecat"
+ 						, details : $("#body-content-short").html()
+ 						, link : {
+ 							label : "check it out!"
+ 							, url : "http://bublaa.com"
+ 						}
+ 						, big : false
+ 					})
+ 					, content({
+ 						image : "sam1.jpg"
+ 						, topic : "officia deserunt mo"
+ 						, details : $("#body-content-short").html()
+ 						, link : {
+ 							label : "check it out!"
+ 							, url : "http://bublaa.com"
+ 						}
+ 						, big : false
+ 					})
+ 				]);
+ 			});
+ 			
+ 		</script>
+	</head>
+	<body>
+		<div class="tile-container container-1">
+			
+		</div>
+	</body>
+</html>
